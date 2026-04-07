@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amafina Kelvin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #F7F4EE;
+    --ink: #1A1816;
+    --mid: #6B6560;
+    --light: #C4BDB4;
+    --faint: #E8E3DC;
+    --accent: #8B4A2F;
+    --surface: #EFECE5;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: var(--bg);
+    border-bottom: 1px solid var(--light);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 48px;
+    height: 64px;
+  }
+
+  .nav-name {
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 28px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 0.74rem;
+    font-weight: 400;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--mid);
+    text-decoration: none;
+    transition: color 0.2s;
+    white-space: nowrap;
+  }
+
+  .nav-links a:hover { color: var(--ink); }
+
+  /* ── SECTION WRAP ── */
+  .sw {
+    padding: 96px 48px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .sw.bordered { border-bottom: 1px solid var(--light); }
+
+  /* ── SECTION HEADER ── */
+  .sh {
+    display: flex;
+    align-items: baseline;
+    gap: 24px;
+    margin-bottom: 52px;
+  }
+
+  .sh h2 {
+    font-family: var(--serif);
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 300;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+  }
+
+  .sh-rule {
+    flex: 1;
+    height: 1px;
+    background: var(--light);
+  }
+
+  /* ── HERO ── */
+  #home {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 148px 48px 80px;
+    border-bottom: 1px solid var(--light);
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 200px;
+    gap: 64px;
+    align-items: start;
+  }
+
+  .hero-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 20px;
+    font-weight: 400;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.1s;
+  }
+
+  h1.hero-name {
+    font-family: var(--serif);
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    font-weight: 300;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    margin-bottom: 28px;
+    color: var(--ink);
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.2s;
+  }
+
+  .hero-bio {
+    max-width: 520px;
+    font-size: 1.02rem;
+    line-height: 1.85;
+    color: var(--mid);
+    margin-bottom: 44px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.35s;
+  }
+
+  .hero-photo {
+    width: 200px;
+    height: 248px;
+    background: var(--surface);
+    border: 1px solid var(--faint);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.25s;
+  }
+
+  .hero-photo svg { opacity: 0.3; }
+
+  .hero-photo-lbl {
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--light);
+  }
+
+  .hero-latest {
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.5s;
+  }
+
+  .latest-lbl {
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--light);
+    margin-bottom: 12px;
+  }
+
+  .hero-latest a {
+    font-family: var(--serif);
+    font-size: 1.08rem;
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--faint);
+    padding: 14px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    transition: color 0.2s;
+  }
+
+  .hero-latest a:hover { color: var(--accent); }
+
+  .hero-latest a .tag {
+    font-family: var(--sans);
+    font-size: 0.66rem;
+    color: var(--light);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  /* ── ABOUT ── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 72px;
+  }
+
+  .about-text p {
+    color: var(--mid);
+    margin-bottom: 18px;
+    font-size: 0.97rem;
+    line-height: 1.9;
+  }
+
+  .about-details { display: flex; flex-direction: column; }
+
+  .detail {
+    border-top: 1px solid var(--faint);
+    padding: 18px 0;
+  }
+
+  .detail-lbl {
+    font-size: 0.66rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--light);
+    margin-bottom: 5px;
+  }
+
+  .detail-val {
+    font-family: var(--serif);
+    font-size: 1.02rem;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+
+  /* ── WRITING ── */
+  .wtabs {
+    display: flex;
+    border-bottom: 1px solid var(--light);
+    margin-bottom: 40px;
+    overflow-x: auto;
+  }
+
+  .tb {
+    background: none;
+    border: none;
+    padding: 12px 22px;
+    font-family: var(--sans);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--mid);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .tb:hover { color: var(--ink); }
+  .tb.active { color: var(--ink); border-bottom-color: var(--accent); }
+
+  .tp { display: none; }
+  .tp.active { display: block; }
+
+  .wi {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: start;
+    gap: 24px;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--faint);
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .wi:hover .wi-t { color: var(--accent); }
+
+  .wi-badge {
+    display: inline-block;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: #F0E8E3;
+    padding: 2px 8px;
+    border-radius: 2px;
+    margin-bottom: 7px;
+  }
+
+  .wi-t {
+    font-family: var(--serif);
+    font-size: 1.18rem;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 5px;
+    transition: color 0.2s;
+    line-height: 1.3;
+  }
+
+  .wi-d {
+    font-size: 0.84rem;
+    color: var(--mid);
+    line-height: 1.6;
+  }
+
+  .wi-m {
+    font-size: 0.7rem;
+    color: var(--light);
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+    text-align: right;
+    padding-top: 4px;
+  }
+
+  /* ── MILLER ── */
+  .miller-intro {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 72px;
+    margin-bottom: 56px;
+  }
+
+  .miller-intro p {
+    color: var(--mid);
+    font-size: 0.97rem;
+    line-height: 1.9;
+    margin-bottom: 16px;
+  }
+
+  .miller-quote {
+    border-left: 2px solid var(--accent);
+    padding-left: 24px;
+  }
+
+  .miller-quote blockquote {
+    font-family: var(--serif);
+    font-size: 1.25rem;
+    font-weight: 300;
+    line-height: 1.6;
+    color: var(--ink);
+    font-style: italic;
+    margin-bottom: 12px;
+  }
+
+  .miller-quote cite {
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--light);
+    font-style: normal;
+  }
+
+  /* ── VIDEOS ── */
+  .videos-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .vc {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: opacity 0.2s;
+  }
+
+  .vc:hover { opacity: 0.75; }
+
+  .vthumb {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: var(--surface);
+    border: 1px solid var(--faint);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+
+  .vthumb svg { opacity: 0.3; }
+
+  .vthumb-lbl {
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--light);
+  }
+
+  .v-title {
+    font-family: var(--serif);
+    font-size: 1rem;
+    color: var(--ink);
+    line-height: 1.4;
+    margin-bottom: 4px;
+  }
+
+  .v-meta {
+    font-size: 0.72rem;
+    color: var(--light);
+    letter-spacing: 0.04em;
+  }
+
+  /* ── LANGOVEST ── */
+  .langovest-block {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .langovest-block h3 {
+    font-family: var(--serif);
+    font-size: clamp(1.4rem, 3vw, 2.1rem);
+    font-weight: 300;
+    line-height: 1.3;
+    margin-bottom: 20px;
+    letter-spacing: -0.01em;
+  }
+
+  .langovest-block p {
+    color: var(--mid);
+    font-size: 0.95rem;
+    line-height: 1.9;
+    margin-bottom: 14px;
+  }
+
+  .lv-right {
+    border-left: 1px solid var(--faint);
+    padding-left: 48px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .lv-right .detail { border-top: 1px solid var(--faint); padding: 18px 0; }
+
+  /* ── CONTACT ── */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 96px;
+    align-items: start;
+  }
+
+  .contact-grid h3 {
+    font-family: var(--serif);
+    font-size: 1.9rem;
+    font-weight: 300;
+    line-height: 1.35;
+    margin-bottom: 18px;
+  }
+
+  .contact-grid p {
+    color: var(--mid);
+    font-size: 0.92rem;
+    line-height: 1.85;
+  }
+
+  .cl {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 0;
+    border-top: 1px solid var(--faint);
+    text-decoration: none;
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: 1.05rem;
+    transition: color 0.2s;
+  }
+
+  .cl:hover { color: var(--accent); }
+
+  .cl-sub {
+    font-family: var(--sans);
+    font-size: 0.66rem;
+    color: var(--light);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+
+  .arr { font-size: 1.1rem; color: var(--light); }
+
+  /* ── TEXT LINK ── */
+  .tl {
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 20px;
+    transition: gap 0.2s;
+  }
+  .tl:hover { gap: 10px; }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--light);
+    padding: 28px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  footer p { font-size: 0.72rem; color: var(--light); letter-spacing: 0.05em; }
+
+  /* ── ANIM ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 860px) {
+    nav { padding: 0 24px; }
+    .nav-links { gap: 16px; }
+    .nav-links li:nth-child(n+5) { display: none; }
+    .sw { padding: 72px 24px; }
+    #home { padding: 112px 24px 64px; }
+    .hero-grid, .about-grid, .miller-intro,
+    .langovest-block, .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+    .hero-photo { width: 120px; height: 144px; }
+    .lv-right { border-left: none; padding-left: 0; border-top: 1px solid var(--faint); padding-top: 32px; }
+    .videos-grid { grid-template-columns: 1fr 1fr; }
+    footer { flex-direction: column; gap: 6px; padding: 24px; }
+  }
+
+  @media (max-width: 520px) {
+    .videos-grid { grid-template-columns: 1fr; }
+    .wi { grid-template-columns: 1fr; }
+    .wi-m { text-align: left; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#home" class="nav-name">Amafina Kelvin</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#writing">Writing</a></li>
+    <li><a href="#miller">Intellectual Extracts</a></li>
+    <li><a href="#videos">Interviews</a></li>
+    <li><a href="#langovest">Langovest</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div id="home">
+  <div class="hero-grid">
+    <div>
+      <div class="hero-label">Founder · Thinker · Builder</div>
+      <h1 class="hero-name">Amafina<br>Kelvin</h1>
+      <p class="hero-bio">
+        I am deeply curious about the African continent — studying how external forces have shaped our development over the years, and how internal structures currently limit it. I express my thoughts through essays, manifestos, research, and articles.
+      </p>
+      <div class="hero-latest">
+        <div class="latest-lbl">Recent writing</div>
+        <a href="#writing">The Ruin of a Civilization <span class="tag">Essay</span></a>
+        <a href="#writing">Cofrastructure — A manifesto for rethinking how we build <span class="tag">Manifesto</span></a>
+        <a href="#miller">On James Grier Miller and living systems <span class="tag">Intellectual Extracts</span></a>
+      </div>
+    </div>
+    <div class="hero-photo">
+      <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+        <circle cx="20" cy="15" r="8" stroke="#6B6560" stroke-width="1.5"/>
+        <path d="M4 36c0-8.837 7.163-16 16-16s16 7.163 16 16" stroke="#6B6560" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <span class="hero-photo-lbl">Photo</span>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div id="about">
+  <div class="sw bordered">
+    <div class="sh"><h2>About</h2><div class="sh-rule"></div></div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+          Infrastructure is never abstract. It is a living system — one that should adapt to and enable the basic functions of our lives. That conviction grew out of an unlikely path: I trained as a medical doctor in Nigeria and Ukraine, completed a Master of Public Health at the National University of Kyiv-Mohyla Academy, and somewhere along the way realised that the infrastructure question was the same as the health question. Both are about whether systems function for the people inside them.
+        </p>
+        <p>
+          That background shapes everything I write and build. My time in clinical and public health settings made clear to me that outcomes are determined not only by expertise, but by whether the surrounding systems hold. The clinic, the supply chain, the power connection — infrastructure is never a background condition. It is the condition.
+        </p>
+        <p>
+          I am the founder of Langovest, a company working to accelerate infrastructure development in Africa through diaspora investment, and InfraMobile, which focuses on modular and mobile technology that enables basic human needs — clinics that move, water systems that scale, food networks that stay resilient.
+        </p>
+        <a href="#contact" class="tl">Get in touch →</a>
+      </div>
+      <div class="about-details">
+        <div class="detail">
+          <div class="detail-lbl">Currently</div>
+          <div class="detail-val">Founder, Langovest · Founder, InfraMobile</div>
+        </div>
+        <div class="detail">
+          <div class="detail-lbl">Based in</div>
+          <div class="detail-val">Nigeria · Ukraine</div>
+        </div>
+        <div class="detail">
+          <div class="detail-lbl">Education</div>
+          <div class="detail-val">MPH — National University of Kyiv-Mohyla Academy<br><br>MBBS — Ivano-Frankivsk National Medical University</div>
+        </div>
+        <div class="detail">
+          <div class="detail-lbl">Focus</div>
+          <div class="detail-val">Blockchain · Infrastructure Development · Systems Thinking</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WRITING -->
+<div id="writing">
+  <div class="sw bordered">
+    <div class="sh"><h2>Writing</h2><div class="sh-rule"></div></div>
+
+    <div class="wtabs">
+      <button class="tb active" onclick="sw('essays',this)">Essays</button>
+      <button class="tb" onclick="sw('manifesto',this)">Manifesto</button>
+      <button class="tb" onclick="sw('research',this)">Research</button>
+      <button class="tb" onclick="sw('notes',this)">Notes</button>
+      <button class="tb" onclick="location.href='#miller'">Intellectual Extracts ↓</button>
+    </div>
+
+    <div id="tp-essays" class="tp active">
+      <a href="#" class="wi">
+        <div>
+          <div class="wi-badge">Essay</div>
+          <div class="wi-t">The Ruin of a Civilization</div>
+          <div class="wi-d">Infrastructure, historical cycles, and the conditions assembling for Africa's next development phase.</div>
+        </div>
+        <div class="wi-m">2025<br>12 min</div>
+      </a>
+      <a href="#" class="wi">
+        <div>
+          <div class="wi-badge">Essay</div>
+          <div class="wi-t">Add university essay title here</div>
+          <div class="wi-d">A short description of the essay's central argument.</div>
+        </div>
+        <div class="wi-m">Year</div>
+      </a>
+    </div>
+
+    <div id="tp-manifesto" class="tp">
+      <a href="#" class="wi">
+        <div>
+          <div class="wi-badge">Manifesto</div>
+          <div class="wi-t">Cofrastructure</div>
+          <div class="wi-d">Infrastructure is never abstract. It is a living system. A series of intellectual arguments for rethinking how we design and build the systems that enable human life — published originally on LinkedIn.</div>
+        </div>
+        <div class="wi-m">Series</div>
+      </a>
+    </div>
+
+    <div id="tp-research" class="tp">
+      <a href="#" class="wi">
+        <div>
+          <div class="wi-badge">Research · In Progress</div>
+          <div class="wi-t">Untitled Research Paper</div>
+          <div class="wi-d">An ongoing inquiry. This work is being refined and will be published in full when ready.</div>
+        </div>
+        <div class="wi-m">Ongoing</div>
+      </a>
+    </div>
+
+    <div id="tp-notes" class="tp">
+      <a href="#" class="wi">
+        <div>
+          <div class="wi-badge">Note</div>
+          <div class="wi-t">Your first short note or reflection</div>
+          <div class="wi-d">Notes are shorter and less refined — observations, questions, and thoughts in progress.</div>
+        </div>
+        <div class="wi-m">2025</div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- INTELLECTUAL EXTRACTS -->
+<div id="miller">
+  <div class="sw bordered">
+    <div class="sh"><h2>Intellectual Extracts</h2><div class="sh-rule"></div></div>
+
+    <div class="miller-intro">
+      <div>
+        <p>
+          This section is where I write about thinkers whose work catches my intellectual curiosity — not summaries, but extracts of what stays with me and how it shapes how I see the world. The first is James Grier Miller, whose theory of living systems became the intellectual foundation of everything I am building. Others, like the educational psychologist Benjamin Bloom, will follow as I encounter work worth sitting with.
+        </p>
+        <p>
+          These pieces are personal, incomplete, and still forming.
+        </p>
+        <a href="#" class="tl">Read the first extract →</a>
+      </div>
+      <div class="miller-quote">
+        <blockquote>
+          "All living systems process matter, energy, and information across their boundaries to maintain themselves against entropy."
+        </blockquote>
+        <cite>James Grier Miller — Living Systems, 1978</cite>
+      </div>
+    </div>
+
+    <!-- James Grier Miller -->
+    <div style="margin-bottom:8px;padding:20px 0 8px;border-top:1px solid var(--light);">
+      <span style="font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--mid);">James Grier Miller</span>
+    </div>
+    <a href="#" class="wi">
+      <div>
+        <div class="wi-badge">Intellectual Extract</div>
+        <div class="wi-t">Living systems — my understanding of Miller's framework</div>
+        <div class="wi-d">What Miller's theory of living systems means to me, and why it changed how I think about infrastructure, society, and the conditions under which human environments function or fail.</div>
+      </div>
+      <div class="wi-m">Series</div>
+    </a>
+    <a href="#" class="wi">
+      <div>
+        <div class="wi-badge">Intellectual Extract</div>
+        <div class="wi-t">Add further piece title here</div>
+        <div class="wi-d">A short description of this piece.</div>
+      </div>
+      <div class="wi-m">2025</div>
+    </a>
+  </div>
+</div>
+
+<!-- INTERVIEWS -->
+<div id="videos">
+  <div class="sw bordered">
+    <div class="sh"><h2>Interviews</h2><div class="sh-rule"></div></div>
+    <div class="videos-grid">
+      <a href="https://youtube.com/watch?v=YOUR_LINK" target="_blank" class="vc">
+        <div class="vthumb">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+            <circle cx="18" cy="18" r="16" stroke="#6B6560" stroke-width="1.5"/>
+            <path d="M15 12l10 6-10 6V12z" fill="#6B6560"/>
+          </svg>
+          <span class="vthumb-lbl">Add YouTube link</span>
+        </div>
+        <div class="v-title">Interview or talk title goes here</div>
+        <div class="v-meta">Platform · Year</div>
+      </a>
+      <a href="https://youtube.com/watch?v=YOUR_LINK" target="_blank" class="vc">
+        <div class="vthumb">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+            <circle cx="18" cy="18" r="16" stroke="#6B6560" stroke-width="1.5"/>
+            <path d="M15 12l10 6-10 6V12z" fill="#6B6560"/>
+          </svg>
+          <span class="vthumb-lbl">Add YouTube link</span>
+        </div>
+        <div class="v-title">Interview or talk title goes here</div>
+        <div class="v-meta">Platform · Year</div>
+      </a>
+      <a href="https://youtube.com/watch?v=YOUR_LINK" target="_blank" class="vc">
+        <div class="vthumb">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+            <circle cx="18" cy="18" r="16" stroke="#6B6560" stroke-width="1.5"/>
+            <path d="M15 12l10 6-10 6V12z" fill="#6B6560"/>
+          </svg>
+          <span class="vthumb-lbl">Add YouTube link</span>
+        </div>
+        <div class="v-title">Interview or talk title goes here</div>
+        <div class="v-meta">Platform · Year</div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- LANGOVEST -->
+<div id="langovest">
+  <div class="sw bordered">
+    <div class="sh"><h2>Langovest</h2><div class="sh-rule"></div></div>
+    <div class="langovest-block">
+      <div>
+        <h3>Building the next generation of African infrastructure.</h3>
+        <p>
+          Langovest began as a question: why does capital from the African diaspora not flow more directly toward the infrastructure development priorities of the continent? The answer is not a lack of will. It is a lack of structure — the right instruments, the right access, and the right coordination.
+        </p>
+        <p>
+          Langovest is my attempt to build that structure. Through two entities, we work at the intersection of infrastructure development, diaspora capital, and community ecosystem — investing in the systems that shape how Africans live, not only how goods move.
+        </p>
+        <a href="#" class="tl">Visit Langovest →</a>
+      </div>
+      <div class="lv-right">
+        <div class="detail">
+          <div class="detail-val">Langovest Ltd<br><small style="font-family:var(--sans);font-size:0.82rem;color:var(--mid);font-weight:300;">Business and infrastructure development</small></div>
+        </div>
+        <div class="detail">
+          <div class="detail-val">Langovest Initiatives Ltd<br><small style="font-family:var(--sans);font-size:0.82rem;color:var(--mid);font-weight:300;">Community and ecosystem building</small></div>
+        </div>
+        <div class="detail">
+          <div class="detail-val">Africa Infrastructure Roundtable<br><small style="font-family:var(--sans);font-size:0.82rem;color:var(--mid);font-weight:300;">Annual event · Manchester, UK</small></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div id="contact">
+  <div class="sw" style="padding-bottom:120px;">
+    <div class="sh"><h2>Contact</h2><div class="sh-rule"></div></div>
+    <div class="contact-grid">
+      <div>
+        <h3>Let's think together about what we are building.</h3>
+        <p>I am open to conversations about African infrastructure, diaspora investment, systems thinking, and the ideas explored across this writing. If something here resonated — or provoked — I would like to hear from you.</p>
+      </div>
+      <div>
+        <a href="mailto:your@email.com" class="cl">
+          <div><div class="cl-sub">Email</div>your@email.com</div>
+          <span class="arr">→</span>
+        </a>
+        <a href="#" class="cl">
+          <div><div class="cl-sub">LinkedIn</div>Kelvin Amafina</div>
+          <span class="arr">→</span>
+        </a>
+        <a href="#" class="cl">
+          <div><div class="cl-sub">Langovest</div>langovest.com</div>
+          <span class="arr">→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 Amafina Kelvin</p>
+  <p>Nigeria · Ukraine</p>
+</footer>
+
+<script>
+  function sw(id, btn) {
+    document.querySelectorAll('.tp').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tb').forEach(b => b.classList.remove('active'));
+    document.getElementById('tp-' + id).classList.add('active');
+    btn.classList.add('active');
+  }
+</script>
+</body>
+</html>
